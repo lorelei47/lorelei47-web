@@ -1,0 +1,9 @@
+@import url("scrollbar.css");
+
+@font-face {
+  src: url("font/MetaVariableDemo-Set.woff2")
+    format("woff2");
+  font-family: "Meta";
+  font-style: normal;
+  font-weight: normal;
+}
