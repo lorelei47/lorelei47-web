@@ -57,6 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 .hamburger-icon {
+  display: none;
   width: 20px;
   height: 20px;
   -webkit-transform: rotate(0deg);
@@ -116,6 +117,11 @@ export default {
         transform: rotate(-135deg);
       }
     }
+  }
+}
+@media screen and (max-width: 960px) {
+  .hamburger-icon {
+    display: inline-block;
   }
 }
 </style>
