@@ -126,8 +126,10 @@ export default {
 
 @media screen and (max-width: 960px) {
   .main-layout {
-    .header-container {
-      height: 60px;
+    .container {
+      .header-container {
+        height: 60px;
+      }
     }
   }
 }
