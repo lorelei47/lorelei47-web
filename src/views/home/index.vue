@@ -65,6 +65,7 @@ export default {
               #06101a 23.3%,
               #06182a 84.7%
             );
+            transition: 0.3s ease-in;
             cursor: pointer;
             overflow: hidden;
             border-radius: 10px;
@@ -119,11 +120,15 @@ export default {
             @include geadient;
           }
           &:hover {
+            .card-container {
+              height: 385px;
+              width: 275px;
+            }
             &::before {
               opacity: 1;
             }
             &::after {
-              // animation: spin 2.5s linear infinite;
+              animation: spin 4s linear infinite;
               opacity: 1;
             }
             .card-text {
@@ -139,13 +144,16 @@ export default {
 
 @keyframes spin {
   0% {
-    @include geadient();
+    transform: scale(0.8);
+    background-color: #4bafff;
   }
   50% {
-    @include geadient(180deg);
+    transform: scale(0.7);
+    background-color: #7cedfa;
   }
   100% {
-    @include geadient();
+    transform: scale(0.8);
+    background-color: #4bafff;
   }
 }
 
