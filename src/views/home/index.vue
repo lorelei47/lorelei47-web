@@ -73,6 +73,7 @@ export default {
               position: absolute;
               bottom: -60px;
               padding-left: 20px;
+              padding-right: 20px;
               transition: 0.3s ease-out;
               color: #06101a;
               .card-title {
@@ -121,8 +122,8 @@ export default {
           }
           &:hover {
             .card-container {
-              height: 385px;
-              width: 275px;
+              height: 371px;
+              width: 265px;
             }
             &::before {
               opacity: 1;

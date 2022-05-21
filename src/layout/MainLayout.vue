@@ -12,6 +12,7 @@
         <router-view></router-view>
       </div>
     </div>
+    <sp-float-window></sp-float-window>
   </div>
 </template>
 

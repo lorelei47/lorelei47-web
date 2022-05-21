@@ -5,6 +5,7 @@ import SpMenuButton from "@/components/SpButton/SpMenuButton/index.vue";
 import SpVideo from "@/components/SpVideo/index.vue";
 import SpVideoBg from "@/components/SpVideo/SpVideoBg/index.vue";
 import SpOpenScreen from "@/components/SpOpenScreen/index.vue";
+import SpFloatWindow from "@/components/SpFloatWindow/index.vue";
 
 const components = [
   SpSection,
@@ -13,7 +14,8 @@ const components = [
   SpMenuButton,
   SpVideo,
   SpVideoBg,
-  SpOpenScreen
+  SpOpenScreen,
+  SpFloatWindow
 ];
 
 export default {
