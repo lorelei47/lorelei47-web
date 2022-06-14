@@ -1,30 +1,41 @@
 <template>
   <div class="home-view">
     <sp-section class="customize-bg">
-      <div v-for="(item, index) in cardList" :key="index" class="card">
-        <div class="card-container">
-          <div class="card-text">
-            <span class="card-title">{{ item.title }}</span>
-            <p class="card-content">{{ item.content }}</p>
+      <lorelei-card
+        v-for="(item, index) in cardList"
+        :key="index"
+        class="card card-hover"
+      >
+        <template #front>
+          <div class="card-container">
+            <div class="card-text">
+              <span class="card-title">{{ item.title }}</span>
+              <p class="card-content">{{ item.content }}</p>
+            </div>
           </div>
-        </div>
-      </div>
+        </template>
+        <template #back> </template>
+      </lorelei-card>
     </sp-section>
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
+import LoreleiCard from "@/views/home/LoreleiCard/index.vue";
 export default {
   name: "HomeView",
+  components: {
+    LoreleiCard
+  },
   setup() {
     const cardList = ref([
       {
         title: `what`,
-        content: `do not go gentle into that good night`
+        content: `这个网站有点奇怪，藏了些秘密`
       },
-      { title: `why`, content: `old age should burn and rave at close of day` },
-      { title: `how`, content: `rage rage against the dying of the light` }
+      { title: `why`, content: `不只是展示，增加一些互动会更好` },
+      { title: `how`, content: `听说这张牌可以翻过来，也可能是个传闻` }
     ]);
     return {
       cardList
@@ -54,21 +65,21 @@ export default {
         flex-wrap: wrap;
         .card {
           position: relative;
+          height: 350px;
+          width: 250px;
           .card-container {
             box-sizing: border-box;
             position: relative;
             z-index: 1;
-            height: 350px;
-            width: 250px;
+            height: 100%;
+            width: 100%;
             background-image: linear-gradient(
               180deg,
               #06101a 23.3%,
               #06182a 84.7%
             );
             transition: 0.3s ease-in;
-            cursor: pointer;
             overflow: hidden;
-            border-radius: 10px;
             .card-text {
               position: absolute;
               bottom: -60px;
@@ -90,51 +101,54 @@ export default {
               }
             }
           }
-          &::before {
-            $width: 2px;
-            content: "";
-            z-index: 1;
-            position: absolute;
-            top: -$width;
-            left: -$width;
-            width: calc(100% + 2 * $width);
-            height: calc(100% + 2 * $width);
-            border-radius: 8px;
-            transition: 0.5s ease-in-out;
-            box-shadow: 0px 2px 5px #06101a;
-            @include card-common;
-            @include geadient;
-          }
-          &::after {
-            content: "";
-            position: absolute;
-            top: calc(350px / 6);
-            left: 0;
-            right: 0;
-            height: 100%;
-            width: 100%;
-            margin: 0 auto;
-            transform: scale(0.8);
-            filter: blur(calc(350px / 6));
-            transition: opacity 0.5s;
-            @include card-common;
-            @include geadient;
-          }
-          &:hover {
-            .card-container {
-              height: 371px;
-              width: 265px;
-            }
+          &.card-hover {
             &::before {
-              opacity: 1;
+              $width: 2px;
+              content: "";
+              z-index: -1;
+              position: absolute;
+              top: -$width;
+              left: -$width;
+              width: calc(100% + 2 * $width);
+              height: calc(100% + 2 * $width);
+              border-radius: 8px;
+              transition: 0.5s ease-in-out;
+              box-shadow: 0px 2px 5px #06101a;
+              @include card-common;
+              @include geadient;
             }
             &::after {
-              animation: spin 4s linear infinite;
-              opacity: 1;
+              content: "";
+              z-index: -1;
+              position: absolute;
+              top: calc(350px / 6);
+              left: 0;
+              right: 0;
+              height: 100%;
+              width: 100%;
+              margin: 0 auto;
+              transform: scale(0.8);
+              filter: blur(calc(350px / 6));
+              transition: opacity 0.5s;
+              @include card-common;
+              @include geadient;
             }
-            .card-text {
-              bottom: 0;
-              color: #94ddff;
+            &:hover {
+              .card-container {
+                height: 371px;
+                width: 265px;
+              }
+              &::before {
+                opacity: 1;
+              }
+              &::after {
+                animation: spin 4s linear infinite;
+                opacity: 1;
+              }
+              .card-text {
+                bottom: 0;
+                color: #94ddff;
+              }
             }
           }
         }
@@ -162,10 +176,8 @@ export default {
   .customize-bg {
     flex-flow: column;
     .card {
-      .card-container {
-        max-height: 120px;
-        width: 200px;
-      }
+      max-height: 120px;
+      width: 200px;
     }
   }
 }
