@@ -4,24 +4,30 @@
       <lorelei-card
         v-for="(item, index) in cardList"
         :key="index"
-        class="card card-hover"
+        class="card"
+        :class="isDecode"
+        :decode-flag="item.active"
       >
         <template #front>
-          <div class="card-container">
+          <div class="card-container-front">
             <div class="card-text">
               <span class="card-title">{{ item.title }}</span>
-              <p class="card-content">{{ item.content }}</p>
+              <p class="card-content">{{ item.frontContent }}</p>
             </div>
           </div>
         </template>
-        <template #back> </template>
+        <template #back>
+          <div class="card-container-back">
+            <div>{{ item.backContent }}</div>
+          </div>
+        </template>
       </lorelei-card>
     </sp-section>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import LoreleiCard from "@/views/home/LoreleiCard/index.vue";
 export default {
   name: "HomeView",
@@ -29,16 +35,33 @@ export default {
     LoreleiCard
   },
   setup() {
+    const decodeClass = ref(false);
     const cardList = ref([
       {
         title: `what`,
-        content: `这个网站有点奇怪，藏了些秘密`
+        frontContent: `这个网站有点奇怪，藏了些秘密`,
+        backContent: `水`,
+        active: false
       },
-      { title: `why`, content: `不只是展示，增加一些互动会更好` },
-      { title: `how`, content: `听说这张牌可以翻过来，也可能是个传闻` }
+      {
+        title: `why`,
+        frontContent: `不只是展示，增加一些互动会更好`,
+        backContent: `浒`,
+        active: false
+      },
+      {
+        title: `how`,
+        frontContent: `听说这张牌可以翻过来，也可能是个传闻`,
+        backContent: `传`,
+        active: false
+      }
     ]);
+    const isDecode = computed(() => {
+      return [decodeClass.value ? "card-active" : "card-hover"];
+    });
     return {
-      cardList
+      cardList,
+      isDecode
     };
   }
 };
@@ -51,6 +74,13 @@ export default {
 }
 @mixin geadient($deg: 0deg) {
   background-image: linear-gradient($deg, #4bafff, #456783 43%, #7cedfa);
+}
+@mixin card-container {
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
 }
 .home-view {
   font-size: 15px;
@@ -67,12 +97,8 @@ export default {
           position: relative;
           height: 350px;
           width: 250px;
-          .card-container {
-            box-sizing: border-box;
-            position: relative;
-            z-index: 1;
-            height: 100%;
-            width: 100%;
+          .card-container-front {
+            @include card-container;
             background-image: linear-gradient(
               180deg,
               #06101a 23.3%,
@@ -80,6 +106,7 @@ export default {
             );
             transition: 0.3s ease-in;
             overflow: hidden;
+            user-select: none;
             .card-text {
               position: absolute;
               bottom: -60px;
@@ -101,7 +128,21 @@ export default {
               }
             }
           }
+          .card-container-back {
+            @include card-container;
+            background-image: linear-gradient(
+              180deg,
+              #0376e8 23.3%,
+              #00a27a 84.7%
+            );
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 8em;
+            color: white;
+          }
           &.card-hover {
+            transition: transform 0.1s ease-in-out;
             &::before {
               $width: 2px;
               content: "";
@@ -134,7 +175,8 @@ export default {
               @include geadient;
             }
             &:hover {
-              .card-container {
+              transform: scale(1.02);
+              .card-container-front {
                 height: 371px;
                 width: 265px;
               }
@@ -148,6 +190,18 @@ export default {
               .card-text {
                 bottom: 0;
                 color: #94ddff;
+              }
+            }
+          }
+          &.card-active {
+            .front {
+              &.active {
+                transform: rotatey(180deg);
+              }
+            }
+            .back {
+              &.active {
+                transform: rotatey(0deg);
               }
             }
           }

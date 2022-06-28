@@ -1,17 +1,32 @@
 <template>
   <div class="lorelei-card">
-    <div class="front">
+    <div class="front" :class="active">
       <slot name="front">金色传说</slot>
     </div>
-    <div class="back">
+    <div class="back" :class="active">
       <slot name="back">银色传说</slot>
     </div>
   </div>
 </template>
 
 <script>
+import { ref, computed } from "vue";
 export default {
-  name: "LoreleiCard"
+  name: "LoreleiCard",
+  props: {
+    decodeFlag: {
+      type: Boolean,
+      default: false
+    }
+  },
+  setup(props) {
+    const active = computed(() => {
+      return [props.decodeFlag ? "active" : ""];
+    });
+    return {
+      active
+    };
+  }
 };
 </script>
 
@@ -37,10 +52,16 @@ export default {
   .front {
     @include card;
     transform: rotatey(0deg);
+    &.active {
+      transform: rotatey(180deg);
+    }
   }
   .back {
     @include card;
     transform: rotatey(-180deg);
+    &.active {
+      transform: rotatey(0deg);
+    }
   }
 }
 </style>
