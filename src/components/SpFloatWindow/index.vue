@@ -1,5 +1,7 @@
 <template>
-  <div class="sp-float-window"></div>
+  <div class="sp-float-window">
+    <slot></slot>
+  </div>
 </template>
 
 <script>

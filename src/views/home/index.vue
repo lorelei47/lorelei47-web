@@ -7,6 +7,7 @@
         class="card"
         :class="isDecode"
         :decode-flag="item.active"
+        @click="clickHandle(index + 1)"
       >
         <template #front>
           <div class="card-container-front">
@@ -23,6 +24,7 @@
         </template>
       </lorelei-card>
     </sp-section>
+    <sp-float-window> </sp-float-window>
   </div>
 </template>
 
@@ -35,6 +37,8 @@ export default {
     LoreleiCard
   },
   setup() {
+    const key = ref([1, 2, 3, 1, 2, 3]);
+    const tapResult = ref([]);
     const decodeClass = ref(false);
     const cardList = ref([
       {
@@ -59,9 +63,25 @@ export default {
     const isDecode = computed(() => {
       return [decodeClass.value ? "card-active" : "card-hover"];
     });
+    const clickHandle = (e) => {
+      if (decodeClass.value) {
+      } else {
+        if (tapResult.value.length >= key.value.length) {
+          tapResult.value.shift();
+        }
+        tapResult.value.push(e);
+        if (
+          key.value.length === tapResult.value.length &&
+          key.value.every((v, i) => v === tapResult.value[i])
+        ) {
+          decodeClass.value = true;
+        }
+      }
+    };
     return {
       cardList,
-      isDecode
+      isDecode,
+      clickHandle
     };
   }
 };
