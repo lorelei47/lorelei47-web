@@ -75,6 +75,9 @@ export default {
           key.value.every((v, i) => v === tapResult.value[i])
         ) {
           decodeClass.value = true;
+          cardList.value.forEach((elem) => {
+            elem.active = true;
+          });
         }
       }
     };
@@ -214,6 +217,7 @@ export default {
             }
           }
           &.card-active {
+            transition: transform 0.1s ease-in-out;
             .front {
               &.active {
                 transform: rotatey(180deg);
@@ -222,6 +226,55 @@ export default {
             .back {
               &.active {
                 transform: rotatey(0deg);
+              }
+            }
+            // &::before {
+            //   $width: 2px;
+            //   content: "";
+            //   z-index: -1;
+            //   position: absolute;
+            //   top: -$width;
+            //   left: -$width;
+            //   width: calc(100% + 2 * $width);
+            //   height: calc(100% + 2 * $width);
+            //   border-radius: 8px;
+            //   transition: 0.5s ease-in-out;
+            //   box-shadow: 0px 2px 5px #06101a;
+            //   @include card-common;
+            //   @include geadient;
+            // }
+            &::after {
+              content: "";
+              z-index: -1;
+              position: absolute;
+              // top: calc(350px / 6);
+              left: 0;
+              right: 0;
+              height: 100%;
+              width: 100%;
+              margin: 0 auto;
+              transform: scale(0.8);
+              filter: blur(calc(350px / 6));
+              transition: opacity 0.5s;
+              @include card-common;
+              @include geadient;
+            }
+            &:hover {
+              transform: scale(1.02);
+              .card-container-front {
+                height: 371px;
+                width: 265px;
+              }
+              &::before {
+                opacity: 1;
+              }
+              &::after {
+                animation: spin 4s linear infinite;
+                opacity: 1;
+              }
+              .card-text {
+                bottom: 0;
+                color: #94ddff;
               }
             }
           }
