@@ -30,6 +30,7 @@
 
 <script>
 import { ref, computed } from "vue";
+import { useStore } from "vuex";
 import LoreleiCard from "@/views/home/LoreleiCard/index.vue";
 export default {
   name: "HomeView",
@@ -37,26 +38,27 @@ export default {
     LoreleiCard
   },
   setup() {
-    const key = ref([1, 2, 3, 1, 2, 3]);
+    const store = useStore();
+    const key = ref(store.state.key);
     const tapResult = ref([]);
     const decodeClass = ref(false);
     const cardList = ref([
       {
         title: `what`,
-        frontContent: `这个网站有点奇怪，藏了些秘密`,
-        backContent: `水`,
+        frontContent: `这个页面藏了些密码`,
+        backContent: `在`,
         active: false
       },
       {
         title: `why`,
-        frontContent: `不只是展示，增加一些互动会更好`,
-        backContent: `浒`,
+        frontContent: `不只是展示，可以互动一下`,
+        backContent: `南`,
         active: false
       },
       {
         title: `how`,
         frontContent: `听说这张牌可以翻过来，也可能是个传闻`,
-        backContent: `传`,
+        backContent: `边`,
         active: false
       }
     ]);

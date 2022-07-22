@@ -7,7 +7,8 @@ export default createStore({
   plugins: debug ? [createLogger()] : [],
   state() {
     return {
-      openScreen: sessionStorage.getItem("openScreen") || "yes"
+      openScreen: sessionStorage.getItem("openScreen") || "yes",
+      key: [1, 2, 3, 1, 2, 3],
     };
   },
   mutations: {
